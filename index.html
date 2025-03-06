@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="Mojimind - A daily emoji puzzle challenge">
+    
+    <!-- iOS PWA improvements -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mindmoji.com/">
+    <meta property="og:title" content="Mojimind - Daily Emoji Challenge">
+    <meta property="og:description" content="Mojimind - play today's emoji puzzle now.">
+    <meta property="og:image" content="https://mindmoji.com/og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://mindmoji.com/">
+    <meta name="twitter:title" content="Mojimind - Daily Emoji Challenge">
+    <meta name="twitter:description" content="Mojimind - play today's emoji puzzle now.">
+    <meta name="twitter:image" content="https://mindmoji.com/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4F46E5">
+    
+    <title>Mindmoji - Daily Emoji Mastermind Challenge</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body class="ios-height-fix">
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Mindmoji</h1>
+            <div class="guesses-counter" id="guesses-counter">0/20</div>
+        </div>
+        
+        <p class="game-date" id="game-date"></p>
+        
+        <div class="game-body">
+            <div class="board-container" id="board-container">
+                <!-- Game board will be generated here -->
+            </div>
+            
+            <div class="current-guess-container" id="current-guess-container">
+                <div class="current-guess" id="current-guess">
+                    <div class="guess-slot" data-index="0"></div>
+                    <div class="guess-slot" data-index="1"></div>
+                    <div class="guess-slot" data-index="2"></div>
+                    <div class="guess-slot" data-index="3"></div>
+                </div>
+                <button class="submit-btn" id="submit-btn" disabled>SUBMIT</button>
+            </div>
+            
+            <div class="emoji-keyboard" id="emoji-keyboard">
+                <!-- Emoji buttons will be generated here -->
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>built with 💜 | <a href="mailto:hello@mindmoji.com">contact</a> | <a href="#" id="how-to-play">how to play</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts - Correct reference to app.js -->
+    <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => {
+                        console.log('Service worker registered!', reg);
+                    })
+                    .catch(err => {
+                        console.log('Service worker registration failed:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

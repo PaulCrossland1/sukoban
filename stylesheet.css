@@ -1,0 +1,561 @@
+:root {
+  --primary-color: #4F46E5;     /* Main brand color - indigo */
+  --secondary-color: #818CF8;   /* Secondary brand color - lighter indigo */
+  --bg-color: #F3F4F6;          /* Background color - light gray */
+  --text-color: #1F2937;        /* Text color - dark gray */
+  --success-color: #10B981;     /* Success feedback - green */
+  --warning-color: #F59E0B;     /* Warning/alert feedback - amber */
+  --border-color: #D1D5DB;      /* Border color - gray */
+  --highlight-color: #EFF6FF;   /* Subtle highlight - very light blue */
+  --feedback-black: #000000;    /* Black peg - correct emoji & position */
+  --feedback-white: #FFFFFF;    /* White peg - correct emoji, wrong position */
+  --slot-bg-color: #E5E7EB;     /* Empty slot background */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 0 auto;
+  /* Make game container scrollable when needed */
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.game-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.guesses-counter {
+  position: absolute;
+  right: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 1.7rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.game-date {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  text-align: center;
+  margin: 8px 0 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.game-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+/* Board Styles */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 16px;
+  flex: 1;
+  padding: 10px 0;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.guess-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 350px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--highlight-color);
+}
+
+.guess-emojis {
+  display: flex;
+  gap: 8px;
+}
+
+.guess-emoji {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-pegs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  margin-left: 10px;
+}
+
+.feedback-peg {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+}
+
+.feedback-black {
+  background-color: var(--feedback-black);
+}
+
+.feedback-white {
+  background-color: var(--feedback-white);
+}
+
+/* Current Guess Styles */
+.current-guess-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.current-guess {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.guess-slot {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: var(--slot-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.guess-slot.filled {
+  background-color: white;
+}
+
+.guess-slot:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-family: 'Space Mono', monospace;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.submit-btn:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+}
+
+/* Emoji Keyboard Styles */
+.emoji-keyboard {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.emoji-key {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.emoji-key:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.emoji-key:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  padding: 15px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 5px;
+}
+
+.footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-overlay.closing {
+  animation: fadeOut 0.3s ease-out;
+}
+
+.modal-container {
+  background-color: white;
+  border-radius: 10px;
+  width: 94%;
+  max-width: 500px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  margin-top: -5px;
+}
+
+.modal-content {
+  padding: 12px 16px 8px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.modal-content p {
+  margin: 0 0 6px;
+  line-height: 1.25;
+  font-size: 0.9rem;
+}
+
+.modal-footer {
+  padding: 8px 16px 12px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+}
+
+.modal-play-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 4px;
+  font-family: 'Space Mono', monospace;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-play-button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Rule sections */
+.rule-section {
+  display: flex;
+  margin-bottom: 14px;
+}
+
+.rule-number {
+  background-color: var(--primary-color);
+  color: white;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.rule-text {
+  flex-grow: 1;
+}
+
+/* Share button styling */
+.share-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-family: 'Space Mono', monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 15px auto 0;
+  display: block;
+}
+
+.share-button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Result message styling */
+.result-message {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+/* Completion modal header styling */
+.completion-modal-header h2 {
+  color: var(--primary-color);
+}
+
+.success-title {
+  color: var(--success-color) !important;
+}
+
+/* Performance graph */
+.performance-graph {
+  margin: 20px 0;
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Media queries for responsive design */
+@media (max-height: 700px) {
+  .game-container {
+    padding: 12px;
+  }
+  
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .game-date {
+    font-size: 0.8rem;
+    margin: 6px 0 12px;
+  }
+  
+  .guess-slot, .emoji-key {
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+  }
+  
+  .guess-emoji {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  .footer {
+    margin-top: 12px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .game-container {
+    padding: 8px;
+  }
+  
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .game-date {
+    font-size: 0.75rem;
+    margin: 4px 0 8px;
+  }
+  
+  .guess-slot, .emoji-key {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+  
+  .submit-btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .footer {
+    margin-top: 8px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .game-container {
+    padding: 8px;
+  }
+  
+  .guess-slot, .emoji-key {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  .guess-emoji {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  
+  .feedback-peg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* iOS height fix */
+.ios-height-fix .game-container {
+  max-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* iOS Safari specific tweaks */
+@supports (-webkit-touch-callout: none) {
+  .game-container {
+    max-height: -webkit-fill-available;
+  }
+}
