@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Create text for share message
       const formattedDate = getFormattedDate();
-      const shareText = `Mojimind: ${formattedDate}\n\n ${isWon ? `I solved it in ${guessHistory.length}/20 guesses, can you do better?` : 'Try again tomorrow!'}\nhttps://mojimind.com`;
+      const shareText = `Mojimind: ${formattedDate}\n\n${isWon ?`I solved it in ${guessHistory.length}/20 guesses, can you do better?` : 'Try again tomorrow!'}\nhttps://mojimind.com`;
       
       // Configure message text
       const messageText = document.createElement('p');
