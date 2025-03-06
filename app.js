@@ -504,14 +504,14 @@ document.addEventListener('DOMContentLoaded', function() {
       // Create result message
       let resultMessage = '';
       if (isWon) {
-          resultMessage = `You solved today's Mojimind in ${guessHistory.length} guesses! ${performanceEmoji}`;
+          resultMessage = `You solved today's mojimind in ${guessHistory.length} guesses! ${performanceEmoji}`;
       } else {
           resultMessage = `Better luck next time! The code was: ${secretCode.join(' ')}`;
       }
       
       // Create text for share message
       const formattedDate = getFormattedDate();
-      const shareText = `Mojimind ${formattedDate} - ${isWon ? `Solved in ${guessHistory.length}/20 guesses! ${performanceEmoji}` : 'Try again tomorrow!'}\nhttps://mojimind.com`;
+      const shareText = `mojimind: ${formattedDate}\n\n ${isWon ? `I solved in ${guessHistory.length}/20 guesses, can you do better?` : 'Try again tomorrow!'}\nhttps://mojimind.com`;
       
       // Configure message text
       const messageText = document.createElement('p');
