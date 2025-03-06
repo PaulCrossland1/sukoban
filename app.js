@@ -367,91 +367,163 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Modal functions
-    function showRulesModal() {
-        // Create modal container
-        const modalOverlay = document.createElement('div');
-        modalOverlay.className = 'modal-overlay';
-        
-        const modalContainer = document.createElement('div');
-        modalContainer.className = 'modal-container';
-        
-        // Modal header
-        const modalHeader = document.createElement('div');
-        modalHeader.className = 'modal-header';
-        
-        const modalTitle = document.createElement('h2');
-        modalTitle.textContent = 'HOW TO PLAY MOJIMIND';
-        
-        const closeButton = document.createElement('button');
-        closeButton.className = 'modal-close';
-        closeButton.textContent = '×';
-        closeButton.onclick = closeModal;
-        
-        modalHeader.appendChild(modalTitle);
-        modalHeader.appendChild(closeButton);
-        
-        // Modal content
-        const modalContent = document.createElement('div');
-        modalContent.className = 'modal-content';
-        
-        modalContent.innerHTML = `
-            <p>Welcome to Mojimind, the daily emoji puzzle challenge!</p>
-            <br>
-            <div class="rule-section">
-                <div class="rule-number">1</div>
-                <div class="rule-text">
-                    <p>Guess the secret 4-emoji code chosen from the 5 emojis shown on your keyboard.</p>
-                </div>
-            </div>
-            
-            <div class="rule-section">
-                <div class="rule-number">2</div>
-                <div class="rule-text">
-                    <p>After each guess, you'll get feedback:</p>
-                    <p>• ⚫ Black peg = Correct emoji in the correct position.</p>
-                    <p>• ⚪ White peg = Correct emoji in the wrong position.</p>
-                </div>
-            </div>
-            
-            <div class="rule-section">
-                <div class="rule-number">3</div>
-                <div class="rule-text">
-                    <p>Tap a slot to clear it if you want to change your guess.</p>
-                </div>
-            </div>
-            
-            <div class="rule-section">
-                <div class="rule-number">4</div>
-                <div class="rule-text">
-                    <p>You have 20 attempts to solve the puzzle. A new challenge is available every day!</p>
-                </div>
-            </div>
-        `;
-        
-        // Modal footer
-        const modalFooter = document.createElement('div');
-        modalFooter.className = 'modal-footer';
-        
-        const playButton = document.createElement('button');
-        playButton.className = 'modal-play-button';
-        playButton.textContent = 'LET\'S GO';
-        playButton.onclick = closeModal;
-        
-        modalFooter.appendChild(playButton);
-        
-        // Assemble modal
-        modalContainer.appendChild(modalHeader);
-        modalContainer.appendChild(modalContent);
-        modalContainer.appendChild(modalFooter);
-        modalOverlay.appendChild(modalContainer);
-        
-        document.body.appendChild(modalOverlay);
-        
-        // Prevent scrolling when modal is open
-        document.body.style.overflow = 'hidden';
-    }
+// Function to show simplified visual rules modal
+function showRulesModal() {
+    // Create modal container
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
     
-    function showHowToPlayModal() {
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'modal-container';
+    
+    // Modal header
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'modal-header';
+    
+    const modalTitle = document.createElement('h2');
+    modalTitle.textContent = 'HOW TO PLAY MOJIMIND';
+    
+    const closeButton = document.createElement('button');
+    closeButton.className = 'modal-close';
+    closeButton.textContent = '×';
+    closeButton.onclick = closeModal;
+    
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(closeButton);
+    
+    // Modal content
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+    
+    modalContent.innerHTML = `
+        <p>Guess the daily 4-emoji code in 20 tries.</p>
+        <p>Each day has a new set of 5 emojis to choose from.</p>
+        <hr style="margin: 12px 0; border-top: 1px solid var(--border-color);">
+        
+        <p style="margin: 12px 0 8px;"><strong>Secret Code:</strong></p>
+        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+            <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍎</div>
+            <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🐱</div>
+            <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🚀</div>
+            <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍓</div>
+        </div>
+        
+        <!-- Example 1: One emoji correct but wrong position -->
+        <div style="display: flex; align-items: center; margin-bottom: 8px; background-color: var(--highlight-color); padding: 8px; border-radius: 6px;">
+            <div style="display: flex; gap: 8px; margin-right: 15px; flex-grow: 1;">
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍎</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 4px;">
+                <div class="feedback-peg feedback-white" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+            </div>
+        </div>
+        <p style="margin: 0 0 16px; font-size: 0.8rem; color: var(--text-color); display: flex; align-items: center;">
+            <span style="display: inline-block; width: 12px; height: 12px; background-color: white; border: 1px solid var(--border-color); border-radius: 50%; margin-right: 6px;"></span> White peg: 🍎 is in the code but in the wrong position
+        </p>
+        
+        <!-- Example 2: One emoji correct and right position -->
+        <div style="display: flex; align-items: center; margin-bottom: 8px; background-color: var(--highlight-color); padding: 8px; border-radius: 6px;">
+            <div style="display: flex; gap: 8px; margin-right: 15px; flex-grow: 1;">
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍎</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 4px;">
+                <div class="feedback-peg feedback-black" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+            </div>
+        </div>
+        <p style="margin: 0 0 16px; font-size: 0.8rem; color: var(--text-color); display: flex; align-items: center;">
+            <span style="display: inline-block; width: 12px; height: 12px; background-color: black; border-radius: 50%; margin-right: 6px;"></span> Black peg: 🍎 is correct AND in the right position
+        </p>
+        
+        <!-- Example 3: Mixed feedback -->
+        <div style="display: flex; align-items: center; margin-bottom: 8px; background-color: var(--highlight-color); padding: 8px; border-radius: 6px;">
+            <div style="display: flex; gap: 8px; margin-right: 15px; flex-grow: 1;">
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍎</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🌈</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🐱</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 4px;">
+                <div class="feedback-peg feedback-black" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg feedback-white" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg" style="width: 12px; height: 12px;"></div>
+            </div>
+        </div>
+        <p style="margin: 0 0 16px; font-size: 0.8rem; color: var(--text-color);">
+            <span style="display: flex; align-items: center; margin-bottom: 4px;">
+                <span style="display: inline-block; width: 12px; height: 12px; background-color: black; border-radius: 50%; margin-right: 6px;"></span> Black peg: 🍎 is correct AND in the right position
+            </span>
+            <span style="display: flex; align-items: center; margin-bottom: 4px;">
+                <span style="display: inline-block; width: 12px; height: 12px; background-color: white; border: 1px solid var(--border-color); border-radius: 50%; margin-right: 6px;"></span> White peg: 🐱 is in the code but in the wrong position
+            </span>
+        </p>
+        
+        <!-- Example 4: Correct guess -->
+        <div style="display: flex; align-items: center; margin-bottom: 8px; background-color: var(--highlight-color); padding: 8px; border-radius: 6px;">
+            <div style="display: flex; gap: 8px; margin-right: 15px; flex-grow: 1;">
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍎</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🐱</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🚀</div>
+                <div class="guess-emoji" style="width: 38px; height: 38px; font-size: 20px; background-color: white;">🍓</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 4px;">
+                <div class="feedback-peg feedback-black" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg feedback-black" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg feedback-black" style="width: 12px; height: 12px;"></div>
+                <div class="feedback-peg feedback-black" style="width: 12px; height: 12px;"></div>
+            </div>
+        </div>
+        <p style="margin: 0 0 16px; font-size: 0.8rem; color: var(--text-color); display: flex; align-items: center;">
+            <span style="display: inline-block; width: 12px; height: 12px; background-color: black; border-radius: 50%; margin-right: 6px;"></span><span style="margin-right: 2px;">4</span> Black pegs: You win!
+        </p>
+        
+        <div style="background-color: var(--bg-color); padding: 8px; border-radius: 6px; margin-top: 8px;">
+            <p style="margin: 0; font-size: 0.8rem;">
+                <strong>Important:</strong> The order of feedback pegs does not correspond to the positions in your guess.
+            </p>
+        </div>
+    `;
+    
+    // Modal footer
+    const modalFooter = document.createElement('div');
+    modalFooter.className = 'modal-footer';
+    
+    const playButton = document.createElement('button');
+    playButton.className = 'modal-play-button';
+    playButton.textContent = 'LET\'S PLAY';
+    playButton.onclick = closeModal;
+    
+    modalFooter.appendChild(playButton);
+    
+    // Assemble modal
+    modalContainer.appendChild(modalHeader);
+    modalContainer.appendChild(modalContent);
+    modalContainer.appendChild(modalFooter);
+    modalOverlay.appendChild(modalContainer);
+    
+    document.body.appendChild(modalOverlay);
+    
+    // Prevent scrolling when modal is open
+    document.body.style.overflow = 'hidden';
+}    
+
+function showHowToPlayModal() {
         // Similar to showRulesModal but can be called from "how to play" button
         showRulesModal();
     }
