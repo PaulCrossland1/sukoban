@@ -6,7 +6,7 @@
   --success-color: #10B981;     /* Success feedback - green */
   --warning-color: #F59E0B;     /* Warning/alert feedback - amber */
   --border-color: #D1D5DB;      /* Border color - gray */
-  --highlight-color: #EFF6FF;   /* Subtle highlight - very light blue */
+  --highlight-color: #96c3ff;   /* Subtle highlight - very light blue */
   --feedback-black: #000000;    /* Black peg - correct emoji & position */
   --feedback-white: #FFFFFF;    /* White peg - correct emoji, wrong position */
   --slot-bg-color: #E5E7EB;     /* Empty slot background */
