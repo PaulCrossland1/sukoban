@@ -230,39 +230,44 @@ h1 {
   cursor: not-allowed;
 }
 
-/* Emoji Keyboard Styles */
+/* Emoji Keyboard Styles - ENHANCED */
 .emoji-keyboard {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   padding: 10px 0;
   width: 100%;
 }
 
 .emoji-key {
-  width: 50px;
-  height: 50px;
+  /* 20% larger size */
+  width: 60px;
+  height: 60px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 32px;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  /* Enhanced shadow */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   transition: transform 0.1s, box-shadow 0.2s;
   -webkit-tap-highlight-color: transparent;
+  /* Prevent text selection */
+  user-select: none;
 }
 
 .emoji-key:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Fix for the lock-in issue for mobile */
 .emoji-key:active {
-  transform: scale(0.98);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .footer {
@@ -437,14 +442,6 @@ h1 {
   color: var(--success-color) !important;
 }
 
-/* Performance graph */
-.performance-graph {
-  margin: 20px 0;
-  text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -476,10 +473,17 @@ h1 {
     margin: 6px 0 12px;
   }
   
-  .guess-slot, .emoji-key {
+  .guess-slot {
     width: 45px;
     height: 45px;
     font-size: 24px;
+  }
+  
+  /* Keep emoji keys larger even at smaller screen sizes */
+  .emoji-key {
+    width: 52px;
+    height: 52px;
+    font-size: 28px;
   }
   
   .guess-emoji {
@@ -508,10 +512,17 @@ h1 {
     margin: 4px 0 8px;
   }
   
-  .guess-slot, .emoji-key {
+  .guess-slot {
     width: 40px;
     height: 40px;
     font-size: 22px;
+  }
+  
+  /* Still maintain good size for emoji keys */
+  .emoji-key {
+    width: 48px;
+    height: 48px;
+    font-size: 26px;
   }
   
   .submit-btn {
@@ -530,10 +541,17 @@ h1 {
     padding: 8px;
   }
   
-  .guess-slot, .emoji-key {
+  .guess-slot {
     width: 35px;
     height: 35px;
     font-size: 20px;
+  }
+  
+  /* Adjusted for very small screens */
+  .emoji-key {
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
   }
   
   .guess-emoji {
