@@ -93,6 +93,7 @@ h1 {
   overflow: hidden;
   justify-content: space-between;
   padding: 0 5px;
+  min-height: 0; /* Allow container to shrink */
 }
 
 /* Board Styles */
@@ -106,7 +107,8 @@ h1 {
   padding: 5px 0;
   width: 100%;
   overflow-y: auto;
-  min-height: 340px;
+  min-height: 0; /* Allow container to shrink */
+  max-height: calc(100vh - 260px); /* Increased space for controls */
 }
 
 .guess-row {
@@ -233,55 +235,179 @@ h1 {
 .emoji-keyboard {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 10px 0;
   width: 100%;
+  padding: 10px 0;
+  margin-top: auto;
+  height: auto; /* Auto height instead of fixed */
+  min-height: 100px; /* Ensure minimum height */
 }
 
-.emoji-key {
-  /* 20% larger size */
-  width: 55px;
-  height: 55px;
+/* New controls container layout */
+.controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 10px;
+}
+
+/* New game button container */
+.new-game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  max-width: 140px;
+}
+
+.new-game-button {
+  width: 100%;
+  max-width: 140px;
+  height: 50px;
   border: none;
-  border-radius: 6px;
-  background-color: white;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
   cursor: pointer;
-  /* Enhanced shadow */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  transition: transform 0.1s, box-shadow 0.2s;
-  -webkit-tap-highlight-color: transparent;
-  /* Prevent text selection */
-  user-select: none;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
-.emoji-key:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+.new-game-button:hover {
+  background-color: var(--secondary-color);
 }
 
-/* Fix for the lock-in issue for mobile */
-.emoji-key:active {
+.new-game-button:active {
+  transform: scale(0.98);
+}
+
+/* D-pad container */
+.dpad-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  width: 50%;
+  max-width: 150px;
+  height: 150px; /* Fixed height to contain all buttons */
+}
+
+.dpad-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+  color: var(--primary-color);
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s, transform 0.1s;
+  margin: auto; /* Center buttons in grid cells */
+}
+
+.dpad-button:hover {
+  background-color: var(--highlight-color);
+}
+
+.dpad-button:active {
   transform: scale(0.95);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.dpad-top {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.dpad-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.dpad-bottom {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.dpad-right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .dpad-button {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .new-game-button {
+    font-size: 14px;
+    height: 45px;
+  }
+  
+  .dpad-container {
+    max-width: 130px;
+    height: 130px;
+  }
+  
+  .emoji-keyboard {
+    min-height: 90px;
+  }
+}
+
+@media (max-width: 320px) {
+  .dpad-button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  
+  .new-game-button {
+    font-size: 12px;
+    height: 40px;
+  }
+  
+  .dpad-container {
+    max-width: 110px;
+    height: 110px;
+    gap: 3px;
+  }
+  
+  .emoji-keyboard {
+    min-height: 80px;
+  }
 }
 
 .footer {
   text-align: center;
-  font-size: 0.85rem;
-  color: var(--text-color);
-  opacity: 0.8;
-  padding: 15px 0;
-  border-top: 1px solid var(--border-color);
+  font-size: 0.8rem;
+  color: var(--secondary-color);
   margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid var(--border-color);
+  clear: both;
 }
 
 .footer a {
   color: var(--primary-color);
   text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
 
 /* Modal Styles */
@@ -685,53 +811,6 @@ h1 {
   .sokoban-cell.goal::after {
     font-size: 14px;
   }
-}
-
-/* D-pad Styles */
-.dpad-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 5px;
-  width: 160px;
-  height: 160px;
-  margin: 0 auto;
-}
-
-.dpad-button {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dpad-top {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.dpad-left {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.dpad-center {
-  grid-column: 2;
-  grid-row: 2;
-  background-color: var(--warning-color);
-}
-
-.dpad-right {
-  grid-column: 3;
-  grid-row: 2;
-}
-
-.dpad-bottom {
-  grid-column: 2;
-  grid-row: 3;
 }
 
 /* Add notification styles for new daily puzzle */

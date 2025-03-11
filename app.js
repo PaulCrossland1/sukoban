@@ -797,9 +797,25 @@ document.addEventListener('DOMContentLoaded', function() {
     function createControlButtons() {
         emojiKeyboard.innerHTML = '';
         
+        // Create a container for the controls layout
+        const controlsContainer = document.createElement('div');
+        controlsContainer.classList.add('controls-container');
+        
+        // Create new game button for the left side
+        const newGameContainer = document.createElement('div');
+        newGameContainer.classList.add('new-game-container');
+        
+        const newGameButton = document.createElement('button');
+        newGameButton.classList.add('emoji-key', 'new-game-button');
+        newGameButton.textContent = '↻ New Game';
+        newGameButton.addEventListener('click', resetLevel);
+        newGameContainer.appendChild(newGameButton);
+        
+        // Create d-pad container for the right side
         const dpadContainer = document.createElement('div');
         dpadContainer.classList.add('dpad-container');
         
+        // Define all four direction buttons
         const directions = [
             { key: 'ArrowUp', label: '↑', action: () => movePlayer(0, -1), position: 'top' },
             { key: 'ArrowLeft', label: '←', action: () => movePlayer(-1, 0), position: 'left' },
@@ -807,22 +823,26 @@ document.addEventListener('DOMContentLoaded', function() {
             { key: 'ArrowRight', label: '→', action: () => movePlayer(1, 0), position: 'right' }
         ];
         
+        // Create and add each direction button
         directions.forEach(dir => {
             const button = document.createElement('button');
             button.classList.add('emoji-key', 'dpad-button', `dpad-${dir.position}`);
             button.textContent = dir.label;
             button.addEventListener('click', dir.action);
             dpadContainer.appendChild(button);
+            
+            // Add debug info
+            console.log(`Created ${dir.position} button: ${dir.label}`);
         });
         
-        const resetButton = document.createElement('button');
-        resetButton.classList.add('emoji-key', 'dpad-button', 'dpad-center');
-        resetButton.textContent = '↻';
-        resetButton.addEventListener('click', resetLevel);
-        dpadContainer.appendChild(resetButton);
+        // Add both containers to the main controls container
+        controlsContainer.appendChild(newGameContainer);
+        controlsContainer.appendChild(dpadContainer);
         
-        emojiKeyboard.appendChild(dpadContainer);
+        // Add the controls container to the emoji keyboard
+        emojiKeyboard.appendChild(controlsContainer);
         
+        // Add keyboard event listener
         document.addEventListener('keydown', handleKeyPress);
     }
     
