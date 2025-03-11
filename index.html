@@ -13,7 +13,7 @@
     <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="description" content="Mojimind - find the emojis">
+    <meta name="description" content="Sukoban - Classic box pushing puzzle game">
     
     <!-- iOS PWA improvements -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,15 +22,15 @@
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mojimind.com/">
-    <meta property="og:title" content="Mojimind - Find the emojis">
-    <meta property="og:description" content="Daily Emoji Mastermind Challenge">
+    <meta property="og:title" content="Sukoban - Classic box pushing puzzle game">
+    <meta property="og:description" content="Push boxes to their designated spots">
     <meta property="og:image" content="https://mojimind.com/og-image.png">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://mojimind.com/">
-    <meta name="twitter:title" content="Mojimind - Find the emojis">
-    <meta name="twitter:description" content="Daily Emoji Mastermind Challenge.">
+    <meta name="twitter:title" content="Sukoban - Classic box pushing puzzle game">
+    <meta name="twitter:description" content="Push boxes to their designated spots">
     <meta name="twitter:image" content="https://mojimind.com/og-image.png">
     
     <!-- Favicon -->
@@ -41,7 +41,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4F46E5">
     
-    <title>Mojimind - Daily Emoji Mastermind Challenge</title>
+    <title>Sukoban - Classic box pushing puzzle game</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,29 +54,26 @@
 <body class="ios-height-fix">
     <div class="game-container">
         <div class="game-header">
-            <h1>MOJIMIND</h1>
-            <div class="guesses-counter" id="guesses-counter">0/20</div>
+            <h1>SUKOBAN</h1>
+            <div class="guesses-counter" id="guesses-counter">Moves: 0</div>
         </div>
         
         <p class="game-date" id="game-date"></p>
         
         <div class="game-body">
             <div class="board-container" id="board-container">
-                <!-- Game board will be generated here -->
+                <!-- Sokoban board will be generated here -->
             </div>
             
             <div class="current-guess-container" id="current-guess-container">
                 <div class="current-guess" id="current-guess">
-                    <div class="guess-slot" data-index="0"></div>
-                    <div class="guess-slot" data-index="1"></div>
-                    <div class="guess-slot" data-index="2"></div>
-                    <div class="guess-slot" data-index="3"></div>
+                    <!-- Removed guess slots -->
                 </div>
-                <button class="submit-btn" id="submit-btn" disabled>SUBMIT</button>
+                <button class="submit-btn" id="submit-btn" style="display: none;">SUBMIT</button>
             </div>
             
             <div class="emoji-keyboard" id="emoji-keyboard">
-                <!-- Emoji buttons will be generated here -->
+                <!-- Control buttons will be generated here -->
             </div>
         </div>
         
