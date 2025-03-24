@@ -1,17 +1,13 @@
-// Service Worker for Mojimind PWA
+// Service Worker for Sukoban PWA
 
-const CACHE_NAME = 'mojimind-cache-v1';
-const ASSETS_TO_CACHE = [
+const CACHE_NAME = 'sukoban-cache-v1';
+const urlsToCache = [
   '/',
   '/index.html',
   '/stylesheet.css',
-  '/mojimind.js',
-  '/manifest.json',
+  '/app.js',
   '/favicon.png',
-  '/apple-touch-icon.png',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/og-image.png',
+  '/manifest.json'
 ];
 
 // Install event - cache assets
@@ -19,7 +15,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        return cache.addAll(ASSETS_TO_CACHE);
+        return cache.addAll(urlsToCache);
       })
       .then(() => self.skipWaiting())
   );
