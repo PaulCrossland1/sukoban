@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Set the viewport height variable for mobile
+    function setViewportHeight() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    // Set initially
+    setViewportHeight();
+    
+    // Update on resize and orientation change
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', setViewportHeight);
+    
     // Game constants
     const GRID_SIZE = 10; // 10x10 grid for procedurally generated Sokoban
     
@@ -807,11 +820,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const newGameButton = document.createElement('button');
         newGameButton.classList.add('emoji-key', 'new-game-button');
-        newGameButton.textContent = '↻ New Game';
+        newGameButton.textContent = 'New';
         newGameButton.addEventListener('click', resetLevel);
         newGameContainer.appendChild(newGameButton);
         
-        // Create d-pad container for the right side
+        // Create d-pad container for the right side - now horizontal
         const dpadContainer = document.createElement('div');
         dpadContainer.classList.add('dpad-container');
         
@@ -823,16 +836,13 @@ document.addEventListener('DOMContentLoaded', function() {
             { key: 'ArrowRight', label: '→', action: () => movePlayer(1, 0), position: 'right' }
         ];
         
-        // Create and add each direction button
+        // Create and add each direction button in a row
         directions.forEach(dir => {
             const button = document.createElement('button');
             button.classList.add('emoji-key', 'dpad-button', `dpad-${dir.position}`);
             button.textContent = dir.label;
             button.addEventListener('click', dir.action);
             dpadContainer.appendChild(button);
-            
-            // Add debug info
-            console.log(`Created ${dir.position} button: ${dir.label}`);
         });
         
         // Add both containers to the main controls container
